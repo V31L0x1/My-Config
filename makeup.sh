@@ -116,3 +116,6 @@ else
     echo -e "${RED}    Error: Failed to clone Red-Team-Tools - $?${NC}"
     echo -e "${RED}    Check internet connection, GitHub access, or if git is installed${NC}"
 fi
+
+echo 'set-option -g default-command bash' >> ~/.tmux.conf
+
