@@ -101,7 +101,13 @@ else
     echo -e "${GREEN}    Alias offsec-mani already exists in ~/.bashrc${NC}"
 fi
 
-echo -e "${GREEN}    Note: Run 'source ~/.bashrc' or restart your terminal to apply aliases${NC}"
+# Source ~/.bashrc to apply aliases immediately
+if source ~/.bashrc 2>/dev/null; then
+    echo -e "${GREEN}    Success: Sourced ~/.bashrc - aliases are now active${NC}"
+else
+    echo -e "${RED}    Error: Failed to source ~/.bashrc - $?${NC}"
+    echo -e "${RED}    Check if ~/.bashrc exists and is readable${NC}"
+fi
 
 echo -e "${GREEN}[+] Downloading Tools${NC}"
 if git clone https://github.com/V31L0x1/Red-Team-Tools.git 2>/dev/null; then
