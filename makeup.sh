@@ -34,7 +34,7 @@ if wget https://raw.githubusercontent.com/V31L0x1/My-Config/refs/heads/main/vpnp
     if chmod +x /etc/htb/vpnpanel.sh 2>/dev/null; then
         echo -e "${GREEN}    Success: vpnpanel.sh downloaded and made executable${NC}"
     else
-        echo -e "${RED}    Error: Failed to set executable permissions on vpuxpanel.sh - $?${NC}"
+        echo -e "${RED}    Error: Failed to set executable permissions on vpnpanel.sh - $?${NC}"
         echo -e "${RED}    Check permissions or file existence${NC}"
     fi
 else
@@ -50,7 +50,7 @@ if [ ! -d "/etc/offsec/" ]; then
     else
         echo -e "${RED}    Error: Failed to create /etc/offsec/ - $?${NC}"
         echo -e "${RED}    Check permissions (may need sudo)${NC}"
-        exit 1  # Exit if directory creation fails, as downloads will fail too
+        exit 1  # Exit if directory creation fails
     fi
 else
     echo -e "${GREEN}    Directory /etc/offsec/ already exists${NC}"
@@ -71,3 +71,34 @@ else
     echo -e "${RED}    Error: Failed to download offsec-bipin.ovpn - $?${NC}"
     echo -e "${RED}    Check internet connection or URL${NC}"
 fi
+
+echo -e "${GREEN}[+] Adding aliases to ~/.bashrc${NC}"
+# Define aliases
+ALIAS_BIPIN="alias offsec-bipin='openvpn /etc/offsec/offsec-bipin.ovpn'"
+ALIAS_MANI="alias offsec-mani='openvpn /etc/offsec/offsec-mani.ovpn'"
+
+# Check and add offsec-bipin alias
+if ! grep -Fxq "$ALIAS_BIPIN" ~/.bashrc; then
+    if echo "$ALIAS_BIPIN" >> ~/.bashrc 2>/dev/null; then
+        echo -e "${GREEN}    Success: Added alias offsec-bipin to ~/.bashrc${NC}"
+    else
+        echo -e "${RED}    Error: Failed to add offsec-bipin alias - $?${NC}"
+        echo -e "${RED}    Check write permissions for ~/.bashrc${NC}"
+    fi
+else
+    echo -e "${GREEN}    Alias offsec-bipin already exists in ~/.bashrc${NC}"
+fi
+
+# Check and add offsec-mani alias
+if ! grep -Fxq "$ALIAS_MANI" ~/.bashrc; then
+    if echo "$ALIAS_MANI" >> ~/.bashrc 2>/dev/null; then
+        echo -e "${GREEN}    Success: Added alias offsec-mani to ~/.bashrc${NC}"
+    else
+        echo -e "${RED}    Error: Failed to add offsec-mani alias - $?${NC}"
+        echo -e "${RED}    Check write permissions for ~/.bashrc${NC}"
+    fi
+else
+    echo -e "${GREEN}    Alias offsec-mani already exists in ~/.bashrc${NC}"
+fi
+
+echo -e "${GREEN}    Note: Run 'source ~/.bashrc' or restart your terminal to apply aliases${NC}"
