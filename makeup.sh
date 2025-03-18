@@ -102,3 +102,11 @@ else
 fi
 
 echo -e "${GREEN}    Note: Run 'source ~/.bashrc' or restart your terminal to apply aliases${NC}"
+
+echo -e "${GREEN}[+] Downloading Tools${NC}"
+if git clone https://github.com/V31L0x1/Red-Team-Tools.git 2>/dev/null; then
+    echo -e "${GREEN}    Success: Cloned Red-Team-Tools repository${NC}"
+else
+    echo -e "${RED}    Error: Failed to clone Red-Team-Tools - $?${NC}"
+    echo -e "${RED}    Check internet connection, GitHub access, or if git is installed${NC}"
+fi
